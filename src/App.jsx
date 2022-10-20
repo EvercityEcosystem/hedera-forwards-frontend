@@ -34,13 +34,14 @@ function App() {
       content: (
         <FormCreateToken
           form={formCreate}
-          onSubmit={(values) =>
+          onSubmit={(values) => {
+            console.log(values);
             CreateTokenTransaction(
               values,
               pairingData.accountIds[0],
               sendTransaction
-            )
-          }
+            );
+          }}
         />
       ),
     });

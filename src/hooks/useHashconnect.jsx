@@ -16,11 +16,6 @@ export const HashConnectAPIProvider = ({
   debug,
 }) => {
   const [state, setState] = useState({
-    appMetadata: {
-      name: "dApp Example",
-      description: "An example hedera dApp",
-      icon: "https://www.hashpack.app/img/logo.svg",
-    },
     availableExtension: null,
     state: HashConnectConnectionState.Disconnected,
     topic: null,
@@ -74,9 +69,9 @@ export const HashConnectAPIProvider = ({
 
 const defaultProps = {
   metaData: {
-    name: "dApp Example",
-    description: "An example hedera dApp",
-    icon: "https://absolute.url/to/icon.png",
+    name: "Forwards dApp",
+    description: "Carbon Forwards dApp",
+    // icon: "https://absolute.url/to/icon.png",
   },
   network: "testnet",
   debug: false,
@@ -99,9 +94,11 @@ export const useHashConnect = () => {
     return_trans = false,
     hideNfts = false
   ) => {
+    let transBytes = trans.toBytes();
+
     const transaction = {
       topic: topic,
-      byteArray: trans,
+      byteArray: transBytes,
 
       metadata: {
         accountToSign: acctToSign,
