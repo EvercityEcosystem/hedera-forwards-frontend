@@ -1,4 +1,5 @@
 import { HashConnect } from "hashconnect";
+import { AccountId, TransactionId } from "@hashgraph/sdk";
 import { HashConnectConnectionState } from "hashconnect/dist/types";
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -94,6 +95,12 @@ export const useHashConnect = () => {
     return_trans = false,
     hideNfts = false
   ) => {
+    let transId = TransactionId.generate(acctToSign);
+    trans.setTransactionId(transId);
+    trans.setNodeAccountIds([new AccountId(3)]);
+
+    await trans.freeze();
+
     let transBytes = trans.toBytes();
 
     const transaction = {

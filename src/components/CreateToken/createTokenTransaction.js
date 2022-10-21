@@ -1,7 +1,5 @@
 import {
-  AccountId,
   PublicKey,
-  TransactionId,
   TransactionReceipt,
   TokenCreateTransaction,
 } from "@hashgraph/sdk";
@@ -50,10 +48,7 @@ function ConstructTokenSymbol(values) {
 
 
 export default async function CreateTokenTransaction(values, signingAcct, sendTransaction) {
-  console.log(
-    "🚀 ~ file: App.jsx ~ line 129 ~ onSubmit={ ~ values",
-    values
-  );
+
   let accountInfo = await window.fetch(
     "https://testnet.mirrornode.hedera.com/api/v1/accounts/" +
       signingAcct,
@@ -61,11 +56,7 @@ export default async function CreateTokenTransaction(values, signingAcct, sendTr
   );
   // let accountInfo:any = await window.fetch("https://mainnet-public.mirrornode.hedera.com/api/v1/accounts/" + signingAcct, { method: "GET" });
   accountInfo = await accountInfo.json();
-  console.log("🚀 ~ file: createTokenTransaction.js ~ line 41 ~ CreateTokenTransaction ~ accountInfo", accountInfo)
-
   let key = await PublicKey.fromString(accountInfo.key.key);
-  console.log("🚀 ~ file: createTokenTransaction.js ~ line 44 ~ CreateTokenTransaction ~ key", key)
-
   let trans = await new TokenCreateTransaction()
     .setTokenName(ConstructTokenName(values))
     .setTokenSymbol(ConstructTokenSymbol(values))
@@ -97,18 +88,10 @@ export default async function CreateTokenTransaction(values, signingAcct, sendTr
   const ipfsLink = "EXAMPLE!!!dadadr8u3jf3o9fuje09vijd";
   trans.setTokenMemo(ipfsLink);
 
-  let transId = TransactionId.generate(signingAcct);
-  trans.setTransactionId(transId);
-  trans.setNodeAccountIds([new AccountId(3)]);
-
-  await trans.freeze();
-
   let res = await sendTransaction(
     trans,
     signingAcct
   );
-  console.log("🚀 ~ file: createTokenTransaction.js ~ line 81 ~ CreateTokenTransaction ~ res", res)
-
   //handle response
   let responseData = {
     response: res,
@@ -118,8 +101,5 @@ export default async function CreateTokenTransaction(values, signingAcct, sendTr
   if (res.success)
     responseData.receipt = TransactionReceipt.fromBytes(res.receipt);
 
-  console.log(
-    "🚀 ~ file: App.jsx ~ line 157 ~ onSubmit={ ~ responseData",
-    responseData
-  );
+
 }
