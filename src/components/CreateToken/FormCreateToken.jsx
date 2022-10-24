@@ -20,9 +20,6 @@ import { Form, Input, Switch } from "antd";
 const FormCreateToken = ({ form, onSubmit }) => {
   return (
     <Form form={form} onFinish={onSubmit} labelCol={{ span: 10 }}>
-      <Form.Item label="KYC" name="kyc">
-        <Switch />
-      </Form.Item>
       <Form.Item required label="Project Name" name="projectName">
         <Input />
       </Form.Item>

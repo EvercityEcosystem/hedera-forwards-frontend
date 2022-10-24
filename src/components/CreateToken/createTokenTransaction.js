@@ -66,11 +66,8 @@ export default async function CreateTokenTransaction(values, signingAcct, sendTr
     .setAdminKey(key)
     .setSupplyKey(key)
     .setWipeKey(key)
-    .setAutoRenewAccountId(signingAcct);
-
-  if(values.kyc) {
-    trans.setKycKey(key);
-  }
+    .setAutoRenewAccountId(signingAcct)
+    .setKycKey(key);
 
   // TODO save data to ipfs
   const dataToIpfs =  {
