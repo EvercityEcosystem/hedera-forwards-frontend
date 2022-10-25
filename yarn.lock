@@ -316,10 +316,10 @@
     "@ethersproject/bytes" "^5.7.0"
     "@ethersproject/logger" "^5.7.0"
 
-"@evercityecosystem/evercity-ui@^0.0.1":
-  version "0.0.1"
-  resolved "https://npm.pkg.github.com/download/@evercityecosystem/evercity-ui/0.0.1/4fce55377efca2cb16220c67bf756b1027d4a7bb#4fce55377efca2cb16220c67bf756b1027d4a7bb"
-  integrity sha512-HFYiSTq+1xRmBgjnGVpl4i+dkm120xjV7VaNO/jyc7/CUID7p4pJdys+uz6E5VpuqymuKV5M6igHHO8Er5o1JA==
+"@evercityecosystem/evercity-ui@0.0.2":
+  version "0.0.2"
+  resolved "https://npm.pkg.github.com/download/@evercityecosystem/evercity-ui/0.0.2/0fce1a11784787592702995ab74c1a0791b2086a#0fce1a11784787592702995ab74c1a0791b2086a"
+  integrity sha512-gXVGHPNdfHR4YP70iv/OiS4HG1Gp2meb7XtMEn0D757s5tmKlWRlfGBtQ05PIINF1jn5tSFzHLTa+DGigAmdvg==
 
 "@grpc/grpc-js@^1.7.0":
   version "1.7.1"
