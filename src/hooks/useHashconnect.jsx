@@ -44,12 +44,14 @@ export const HashConnectAPIProvider = ({
     //This is fired when a extension is found
     hashConnect.foundExtensionEvent.on((data) => {
       if (debug) console.log("============Found extension", data);
+
       setState((prev) => ({ ...prev, availableExtension: data }));
     });
 
     //This is fired when a wallet approves a pairing
     hashConnect.pairingEvent.on((data) => {
       if (debug) console.log("============Paired with wallet", data);
+
       setState((prev) => ({ ...prev, pairingData: data.pairingData }));
     });
 
@@ -57,6 +59,7 @@ export const HashConnectAPIProvider = ({
     hashConnect.connectionStatusChangeEvent.on((state) => {
       if (debug)
         console.log("=============hashconnect state change event", state);
+
       setState((prev) => ({ ...prev, state: state }));
     });
   }, []);
@@ -76,6 +79,7 @@ const defaultProps = {
   },
   network: "testnet",
   debug: true,
+
 };
 
 HashConnectAPIProvider.defaultProps = defaultProps;
@@ -106,7 +110,6 @@ export const useHashConnect = () => {
     const transaction = {
       topic: topic,
       byteArray: transBytes,
-
       metadata: {
         accountToSign: acctToSign,
         returnTransaction: return_trans,

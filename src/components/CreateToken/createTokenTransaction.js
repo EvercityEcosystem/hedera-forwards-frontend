@@ -194,6 +194,7 @@ export default async function CreateTokenTransaction(
   trans.setTokenMemo(ipfsLink);
 
   let res = await sendTransaction(trans, signingAcct);
+
   //handle response
   let responseData = {
     response: res,
