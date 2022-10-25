@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@evercityecosystem/evercity-ui": "0.0.2",
+    "@evercityecosystem/evercity-ui": "0.0.3",
     "@hashgraph/sdk": "^2.18.3",
     "antd": "^4.23.5",
     "hashconnect": "^0.2.3",
