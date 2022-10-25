@@ -3,18 +3,21 @@ import {
   TransactionReceipt,
   TokenCreateTransaction,
 } from "@hashgraph/sdk";
+import { notification } from "antd";
+import { useCallback } from "react";
 
 // Token metadata
 // ID - Hedera
 
-// Project Name 
+// Project Name
 // Project Type
-// Country 
-// Vintage 
+// Country
+// Vintage
 // Validation date
 // Registration date
+// Standard
 // Projected Execution date: Vintage year + Quarter of verification report
-// Sustainable Development Goals 
+// Sustainable Development Goals
 
 // stored on backend:
 // Status: issued, executed, canceled
@@ -26,35 +29,131 @@ import {
 //   vintage
 //   validationDate
 //   registrationDate
+//   standard
 //   executionDate
 //   sustainableDevelopmentGoals
 // }
 
+const PINATA_URI = "https://api.pinata.cloud";
+
+async function pinJSONToIPFS(body) {
+  const res = await fetch(`${PINATA_URI}/pinning/pinJSONToIPFS`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_PINATA_JWT}`,
+    },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+  if (import.meta.env.VITE_DEBUG) console.log(data);
+  if (data.error) {
+    notification.error({
+      message: data.error.reason,
+      description: data.error.details,
+    });
+  }
+  if (data.IpfsHash) {
+    if (import.meta.env.VITE_DEBUG)
+      console.log("=============pinata response data hash", data.IpfsHash);
+    return data.IpfsHash;
+  }
+}
+
 function ConstructTokenName(values) {
-  if("Forward".length+1+values.projectName.length+1+values.projectType.length+1+values.vintage.length <=100) {
-    return "Forward"+"-"+values.projectName+"-"+values.projectType+"-"+values.vintage;
-  } else if ("Forward".length+1+values.projectName.length+1+values.vintage.length <=100) {
-    return "Forward"+"-"+values.projectName+"-"+values.vintage;
+  if (
+    "Forward".length +
+      1 +
+      values.projectName.length +
+      1 +
+      values.projectType.length +
+      1 +
+      values.standard.length +
+      1 +
+      values.vintage.length <=
+    100
+  ) {
+    return (
+      "Forward" +
+      "-" +
+      values.projectName +
+      "-" +
+      values.projectType +
+      "-" +
+      values.standard +
+      "-" +
+      values.vintage
+    );
+  } else if (
+    "Forward".length +
+      1 +
+      values.projectName.length +
+      1 +
+      values.projectType.length +
+      1 +
+      values.vintage.length <=
+    100
+  ) {
+    return (
+      "Forward" +
+      "-" +
+      values.projectName +
+      "-" +
+      values.projectType +
+      "-" +
+      values.vintage
+    );
+  } else if (
+    "Forward".length +
+      1 +
+      values.projectName.length +
+      1 +
+      values.vintage.length <=
+    100
+  ) {
+    return "Forward" + "-" + values.projectName + "-" + values.vintage;
   } else {
-    const excess = "Forward".length+1+values.projectName.length+1+values.vintage.length -100;
-    return "Forward"+"-"+values.projectName.substring(0,values.projectName.length-excess)+"-"+values.vintage;
+    const excess =
+      "Forward".length +
+      1 +
+      values.projectName.length +
+      1 +
+      values.vintage.length -
+      100;
+    return (
+      "Forward" +
+      "-" +
+      values.projectName.substring(0, values.projectName.length - excess) +
+      "-" +
+      values.vintage
+    );
   }
 }
 
 function ConstructTokenSymbol(values) {
-  let sym = "F"+values.projectName[0]+values.projectType[0]+values.vintage;
-  return sym;
+  return (
+    "F" +
+    values.projectName[0] +
+    values.projectType[0] +
+    values.standard[0] +
+    values.vintage
+  );
 }
 
+export default async function CreateTokenTransaction(
+  values,
+  signingAcct,
+  sendTransaction,
+) {
+  if (import.meta.env.VITE_DEBUG)
+    console.log("***************network*******************");
+  if (import.meta.env.VITE_DEBUG) console.log(import.meta.env.VITE_NETWORK);
 
-export default async function CreateTokenTransaction(values, signingAcct, sendTransaction) {
-
-  let accountInfo = await window.fetch(
-    "https://testnet.mirrornode.hedera.com/api/v1/accounts/" +
-      signingAcct,
-    { method: "GET" }
-  );
-  // let accountInfo:any = await window.fetch("https://mainnet-public.mirrornode.hedera.com/api/v1/accounts/" + signingAcct, { method: "GET" });
+  const URL =
+    import.meta.env.VITE_NETWORK == "mainnet"
+      ? "https://mainnet-public.mirrornode.hedera.com/api/v1/accounts/"
+      : "https://testnet.mirrornode.hedera.com/api/v1/accounts/";
+  let accountInfo = await window.fetch(URL + signingAcct, { method: "GET" });
   accountInfo = await accountInfo.json();
   let key = await PublicKey.fromString(accountInfo.key.key);
   let trans = await new TokenCreateTransaction()
@@ -69,26 +168,32 @@ export default async function CreateTokenTransaction(values, signingAcct, sendTr
     .setAutoRenewAccountId(signingAcct)
     .setKycKey(key);
 
-  // TODO save data to ipfs
-  const dataToIpfs =  {
-      projectName: values.projectName,
-      projectType: values.projectType,
-      country: values.country,
-      vintage: values.vintage,
-      validationDate: values.validationDate,
-      registrationDate: values.registrationDate,
-      executionDate: values.executionDate,
-      sustainableDevelopmentGoals: values.sustainableDevelopmentGoals
-    }
+  // save data to ipfs
+  let dataToIpfs = {
+    projectName: values.projectName,
+    projectType: values.projectType,
+    country: values.country,
+    vintage: values.vintage,
+    validationDate: values.validationDate,
+    registrationDate: values.registrationDate,
+    standard: values.standard,
+    executionDate: values.executionDate,
+    sustainableDevelopmentGoals: values.sustainableDevelopmentGoals,
+  };
+
+  if (import.meta.env.VITE_DEBUG)
+    console.log("************dataToIpfs***********");
+  if (import.meta.env.VITE_DEBUG) console.log(dataToIpfs);
 
   // should be <=100 symbols
-  const ipfsLink = "EXAMPLE!!!dadadr8u3jf3o9fuje09vijd";
+  // pinata cloud
+  const ipfsLink = await pinJSONToIPFS(dataToIpfs);
+  if (import.meta.env.VITE_DEBUG)
+    console.log("***************ipfsLink*******************");
+  if (import.meta.env.VITE_DEBUG) console.log(ipfsLink);
   trans.setTokenMemo(ipfsLink);
 
-  let res = await sendTransaction(
-    trans,
-    signingAcct
-  );
+  let res = await sendTransaction(trans, signingAcct);
   //handle response
   let responseData = {
     response: res,
@@ -97,6 +202,4 @@ export default async function CreateTokenTransaction(values, signingAcct, sendTr
 
   if (res.success)
     responseData.receipt = TransactionReceipt.fromBytes(res.receipt);
-
-
 }

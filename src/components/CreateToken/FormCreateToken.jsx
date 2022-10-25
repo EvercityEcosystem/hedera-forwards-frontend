@@ -38,6 +38,9 @@ const FormCreateToken = ({ form, onSubmit }) => {
       <Form.Item required label="Registration Date" name="registrationDate">
         <Input />
       </Form.Item>
+      <Form.Item required label="Standard" name="standard">
+        <Input />
+      </Form.Item>
       <Form.Item required label="Projected Execution Date" name="executionDate">
         <Input />
       </Form.Item>

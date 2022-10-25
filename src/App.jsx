@@ -51,7 +51,7 @@ function App() {
             CreateTokenTransaction(
               values,
               pairingData.accountIds[0],
-              sendTransaction
+              sendTransaction,
             );
           }}
         />
@@ -82,10 +82,10 @@ function App() {
           GrantKycTokenTransaction(
             values,
             pairingData.accountIds[0],
-            sendTransaction
+            sendTransaction,
           )
         }
-      />
+      />,
     );
   const handleMint = () =>
     handle(
@@ -96,10 +96,10 @@ function App() {
           MintTokenTransaction(
             values,
             pairingData.accountIds[0],
-            sendTransaction
+            sendTransaction,
           )
         }
-      />
+      />,
     );
   const handleSend = () =>
     handle(
@@ -110,10 +110,10 @@ function App() {
           TransferTokenTransaction(
             values,
             pairingData.accountIds[0],
-            sendTransaction
+            sendTransaction,
           )
         }
-      />
+      />,
     );
   const handleWipe = () =>
     handle(
@@ -124,10 +124,10 @@ function App() {
           WipeTokenTransaction(
             values,
             pairingData.accountIds[0],
-            sendTransaction
+            sendTransaction,
           )
         }
-      />
+      />,
     );
 
   const handleAssociate = () =>
@@ -139,10 +139,10 @@ function App() {
           AssocciateTokenTransaction(
             values,
             pairingData.accountIds[0],
-            sendTransaction
+            sendTransaction,
           )
         }
-      />
+      />,
     );
   const handleApproveAllowance = () =>
     handle(
@@ -153,10 +153,10 @@ function App() {
           ApproveAllowanceTransaction(
             values,
             pairingData.accountIds[0],
-            sendTransaction
+            sendTransaction,
           )
         }
-      />
+      />,
     );
 
   useEffect(() => {}, []);
