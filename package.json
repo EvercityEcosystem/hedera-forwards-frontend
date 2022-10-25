@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@evercityecosystem/evercity-ui": "^0.0.1",
     "@hashgraph/sdk": "^2.18.3",
     "antd": "^4.23.5",
     "hashconnect": "^0.2.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
