@@ -55,74 +55,48 @@ async function uploadToWeb3Storage(dataToIpfs, token_name) {
   return cid;
 }
 
-function ConstructTokenName(values) {
+function ConstructTokenName(v) {
   if (
     "Forward".length +
       1 +
-      values.projectName.length +
+      v.projectName.length +
       1 +
-      values.projectType.length +
+      v.projectType.length +
       1 +
-      values.standard.length +
+      v.standard.length +
       1 +
-      values.vintage.length <=
+      v.vintage.length <=
     100
   ) {
-    return (
-      "Forward" +
-      "-" +
-      values.projectName +
-      "-" +
-      values.projectType +
-      "-" +
-      values.standard +
-      "-" +
-      values.vintage
-    );
-  } else if (
-    "Forward".length +
-      1 +
-      values.projectName.length +
-      1 +
-      values.projectType.length +
-      1 +
-      values.vintage.length <=
-    100
-  ) {
-    return (
-      "Forward" +
-      "-" +
-      values.projectName +
-      "-" +
-      values.projectType +
-      "-" +
-      values.vintage
-    );
-  } else if (
-    "Forward".length +
-      1 +
-      values.projectName.length +
-      1 +
-      values.vintage.length <=
-    100
-  ) {
-    return "Forward" + "-" + values.projectName + "-" + values.vintage;
-  } else {
-    const excess =
-      "Forward".length +
-      1 +
-      values.projectName.length +
-      1 +
-      values.vintage.length -
-      100;
-    return (
-      "Forward" +
-      "-" +
-      values.projectName.substring(0, values.projectName.length - excess) +
-      "-" +
-      values.vintage
-    );
+    return `Forward-${v.projectName}-${v.projectType}-${v.standard}-${v.vintage}`;
   }
+
+  if (
+    "Forward".length +
+      1 +
+      v.projectName.length +
+      1 +
+      v.projectType.length +
+      1 +
+      v.vintage.length <=
+    100
+  ) {
+    return `Forward-${v.projectName}-${v.projectType}-${v.vintage}`;
+  }
+
+  if (
+    "Forward".length + 1 + v.projectName.length + 1 + v.vintage.length <=
+    100
+  ) {
+    return `Forward-${v.projectName}-${v.vintage}`;
+  }
+
+  const excess =
+    "Forward".length + 1 + v.projectName.length + 1 + v.vintage.length - 100;
+  return `Forward-${v.projectName.substring(
+    0,
+    v.projectName.length - excess,
+  )}-${v.vintage}`;
 }
 
 function ConstructTokenSymbol(values) {
