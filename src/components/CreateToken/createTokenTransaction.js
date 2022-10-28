@@ -4,7 +4,7 @@ import {
   TokenCreateTransaction,
 } from "@hashgraph/sdk";
 import { notification } from "antd";
-import { useCallback } from "react";
+import { Web3Storage } from "web3.storage";
 
 // Token metadata
 // ID - Hedera
@@ -34,30 +34,25 @@ import { useCallback } from "react";
 //   sustainableDevelopmentGoals
 // }
 
-const PINATA_URI = "https://api.pinata.cloud";
-
-async function pinJSONToIPFS(body) {
-  const res = await fetch(`${PINATA_URI}/pinning/pinJSONToIPFS`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_PINATA_JWT}`,
-    },
-    body: JSON.stringify(body),
+async function uploadToWeb3Storage(dataToIpfs, token_name) {
+  const blob = new Blob([JSON.stringify(dataToIpfs)], {
+    type: "application/json",
   });
-  const data = await res.json();
-  if (import.meta.env.VITE_DEBUG) console.log(data);
-  if (data.error) {
-    notification.error({
-      message: data.error.reason,
-      description: data.error.details,
+  const file = new File([blob], `${token_name}.json`);
+
+  const client = new Web3Storage({
+    token: import.meta.env.VITE_WEB3_STORAGE_JWT,
+  });
+
+  const onRootCidReady = (cid) => {
+    notification.info({
+      message: `uploading to web3.storage`,
+      description: `CID is ${cid} `,
     });
-  }
-  if (data.IpfsHash) {
-    if (import.meta.env.VITE_DEBUG)
-      console.log("=============pinata response data hash", data.IpfsHash);
-    return data.IpfsHash;
-  }
+  };
+  const cid = await client.put([file], { onRootCidReady });
+  if (import.meta.env.VITE_DEBUG) console.log("stored file with cid:", cid);
+  return cid;
 }
 
 function ConstructTokenName(values) {
@@ -156,8 +151,9 @@ export default async function CreateTokenTransaction(
   let accountInfo = await window.fetch(URL + signingAcct, { method: "GET" });
   accountInfo = await accountInfo.json();
   let key = await PublicKey.fromString(accountInfo.key.key);
+  const token_name = ConstructTokenName(values);
   let trans = await new TokenCreateTransaction()
-    .setTokenName(ConstructTokenName(values))
+    .setTokenName(token_name)
     .setTokenSymbol(ConstructTokenSymbol(values))
     .setDecimals(0)
     .setInitialSupply(values.supply)
@@ -186,12 +182,11 @@ export default async function CreateTokenTransaction(
   if (import.meta.env.VITE_DEBUG) console.log(dataToIpfs);
 
   // should be <=100 symbols
-  // pinata cloud
-  const ipfsLink = await pinJSONToIPFS(dataToIpfs);
+  const cid = await uploadToWeb3Storage(dataToIpfs, token_name);
   if (import.meta.env.VITE_DEBUG)
-    console.log("***************ipfsLink*******************");
-  if (import.meta.env.VITE_DEBUG) console.log(ipfsLink);
-  trans.setTokenMemo(ipfsLink);
+    console.log("***************CID*******************");
+  if (import.meta.env.VITE_DEBUG) console.log(cid);
+  trans.setTokenMemo(cid);
 
   let res = await sendTransaction(trans, signingAcct);
 
