@@ -4,7 +4,6 @@ import { Button } from "@evercityecosystem/evercity-ui";
 import {useHashConnect} from "../../hooks/useHashconnect.jsx";
 import FormCreateToken from "../../components/CreateToken/FormCreateToken.jsx";
 import CreateTokenTransaction from "../../components/CreateToken/createTokenTransaction.js";
-import LkLayout from "../../components/LkLayout/LkLayout.jsx";
 
 const Home = () => {
   const {
@@ -66,7 +65,7 @@ const Home = () => {
   const handleAssociate = () => {};
 
 
-  return(<LkLayout>
+  return(<>
       <Space direction="vertical" size="middle" style={{ display: "flex" }}>
         {pairingData != null && (
           <Descriptions title="HashPack Connection Info">
@@ -111,7 +110,7 @@ const Home = () => {
           <Button>Confirm</Button>
         </Popconfirm>
       </Space>
-  </LkLayout>);
+  </>);
 };
 
 export default Home;
