@@ -12,7 +12,10 @@ import HashConnectAPIProvider from "./hooks/useHashconnect";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <HashConnectAPIProvider debug={true}>
+      <HashConnectAPIProvider 
+      network={import.meta.env.VITE_NETWORK}
+      debug={import.meta.env.VITE_DEBUG}
+      >
         <App />
       </HashConnectAPIProvider>
     </BrowserRouter>
