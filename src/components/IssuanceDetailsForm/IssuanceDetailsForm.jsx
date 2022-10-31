@@ -1,12 +1,12 @@
 import React from "react";
-import { Form, InputNumber, DatePicker } from "@evercityecosystem/evercity-ui";
+import { Form, InputNumber, DatePicker, Button } from "@evercityecosystem/evercity-ui";
 
-const IssuanceDetailsForm = () => <Form layout="vertical">
-  <Form.Item label="Total carbon amount to be issued" name="carbonAmount">
-    <InputNumber />
+const IssuanceDetailsForm = ({ onSubmit }) => <Form onFinish={onSubmit} layout="vertical">
+  <Form.Item label="Total carbon amount to be issued" name="totalCarbonAmount">
+    <InputNumber controls={false} />
   </Form.Item>
   <Form.Item label="Total Vintage Quantity" name="vintageQuantity">
-    <InputNumber />
+    <InputNumber controls={false} />
   </Form.Item>
   <Form.Item label="Crediting period start" name="periodStart">
     <DatePicker picker="year" />
@@ -16,6 +16,11 @@ const IssuanceDetailsForm = () => <Form layout="vertical">
   </Form.Item>
   <Form.Item label="Verification period quarter" name="verificationQuarter">
     <DatePicker picker="quarter" />
+  </Form.Item>
+  <Form.Item>
+    <Button htmlType="submit" type="primary">
+      Ok
+    </Button>
   </Form.Item>
 </Form>;
 
