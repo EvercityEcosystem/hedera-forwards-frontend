@@ -79,7 +79,6 @@ const defaultProps = {
   },
   network: "testnet",
   debug: true,
-
 };
 
 HashConnectAPIProvider.defaultProps = defaultProps;
@@ -115,16 +114,13 @@ export const useHashConnect = () => {
         returnTransaction: return_trans,
       },
     };
-    console.log(
-      "🚀 ~ file: useHashconnect.jsx ~ line 197 ~ useHashConnect ~ transaction",
-      transaction,
-    );
-
     return await hashConnect.sendTransaction(topic, transaction);
   };
 
-  const disconnect = () => {
-    setState((prev) => ({ ...prev, pairingData: null }));
+  const disconnect = async () => {
+    hashConnect
+      .disconnect(pairingData.topic)
+      .then(() => setState((prev) => ({ ...prev, pairingData: null })));
   };
 
   return { ...value, connectToExtension, sendTransaction, disconnect };
