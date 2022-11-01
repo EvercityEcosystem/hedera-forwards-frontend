@@ -343,7 +343,7 @@
     "@ethersproject/bytes" "^5.7.0"
     "@ethersproject/logger" "^5.7.0"
 
-"@evercityecosystem/evercity-ui@0.0.4":
+"@evercityecosystem/evercity-ui@0.0.5":
   version "0.0.4"
   resolved "https://npm.pkg.github.com/download/@evercityecosystem/evercity-ui/0.0.4/f9ddf403012cd4409811cbcc5f3f456ec41b50ff#f9ddf403012cd4409811cbcc5f3f456ec41b50ff"
   integrity sha512-UehOrJ51cR9Xg1wucNm2ZKc3LEcAgDnzG7/QdwWKkzI4iX7+cCdJfP4c18lVfBxWMhCiANhZMannXXkQMM3wtw==

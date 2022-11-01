@@ -17,13 +17,13 @@ const Issuance = () => {
     setVisibleDetailsModal(false);
   };
 
-  const handleSubmit = ({ vintageQuantity, totalCarbonAmount, periodStart, periodEnd }) => {
+  const handleSubmit = ({ vintageQuantity, totalCarbonAmount, creditingPeriod }) => {
     setVisibleDetailsModal(false);
+    const oldIssuances = form.getFieldValue("issuances");
     form.setFieldsValue({
-      issuances: new Array(vintageQuantity).fill({}),
+      issuances: oldIssuances ? oldIssuances.slice(0, vintageQuantity) : new Array(vintageQuantity).fill({}),
       totalCarbonAmount,
-      periodStart,
-      periodEnd,
+      creditingPeriod
     });
   };
 
@@ -42,9 +42,7 @@ const Issuance = () => {
     >
       <IssuanceDetailsForm onSubmit={handleSubmit} />
     </Modal>
-    <Form form={form} onValuesChange={(v) => {
-      console.log(v)
-    }}>
+    <Form form={form}>
       <Form.List name="issuances">
         {(issuances) => <IssuanceDetailsTable
           issuances={issuances}
