@@ -127,7 +127,6 @@ const Home = () => {
         }
       />,
     );
-
   const handleAssociate = () =>
     handle(
       "Associate Token",
@@ -157,8 +156,8 @@ const Home = () => {
       />,
     );
 
-  return (
-    <LkLayout>
+
+  return(<>
       <Space direction="vertical" size="middle" style={{ display: "flex" }}>
         {pairingData != null && (
           <Descriptions title="HashPack Connection Info">
@@ -215,8 +214,7 @@ const Home = () => {
         <Button>Confirm</Button>
       </Popconfirm> */}
       </Space>
-    </LkLayout>
-  );
+  </>);
 };
 
 export default Home;
