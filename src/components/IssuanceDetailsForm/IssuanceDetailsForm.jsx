@@ -17,19 +17,19 @@ const IssuanceDetailsForm = ({ onSubmit }) => <Form onFinish={onSubmit} layout="
     <InputNumber controls={false} />
   </Form.Item>
       <Form.Item label="Crediting period" name="creditingPeriod" dependencies={["vintageQuantity"]}
-            rules={[
-                  { required: true, message: "Required field" },
-                ({ getFieldValue }) => ({
-                  validator(_, period) {
-                    const startYear = period[0].year();
-                    const endYear = period[1].year();
-                    const vintageQuantity = getFieldValue("vintageQuantity");
-                    if (startYear + vintageQuantity - 1 <= endYear) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error(`Period cannot be less than ${vintageQuantity} years`));
-                  },
-                })]
+        rules={[
+          { required: true, message: "Required field" },
+          ({ getFieldValue }) => ({
+            validator(_, period) {
+              const startYear = period[0].year();
+              const endYear = period[1].year();
+              const vintageQuantity = getFieldValue("vintageQuantity");
+              if (startYear + vintageQuantity - 1 <= endYear) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error(`Period cannot be less than ${vintageQuantity} years`));
+            },
+          })]
       }
     >
       <DatePicker.RangePicker picker="year" />
