@@ -170,6 +170,9 @@ export default async function CreateTokenTransaction(
     receipt: null,
   };
 
-  if (res.success)
+  if (res.success) {
     responseData.receipt = TransactionReceipt.fromBytes(res.receipt);
+  }
+
+  return responseData;
 }

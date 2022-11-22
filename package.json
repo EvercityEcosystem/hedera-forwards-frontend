@@ -9,10 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@evercityecosystem/evercity-ui": "0.0.6",
+    "@ant-design/icons": "^4.8.0",
+    "@evercityecosystem/evercity-ui": "1.0.3",
     "@hashgraph/sdk": "^2.18.3",
     "antd": "^4.23.5",
     "hashconnect": "^0.2.3",
+    "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",

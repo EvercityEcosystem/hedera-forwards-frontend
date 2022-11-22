@@ -1,5 +1,12 @@
 import React from "react";
-import {Table, Form, DatePicker, InputNumber, Switch } from "@evercityecosystem/evercity-ui";
+import {
+  Table,
+  Form,
+  DatePicker,
+  InputNumber,
+  Switch,
+  ExternalLink
+} from "@evercityecosystem/evercity-ui";
 
 const SwitchForwardCell = ({ index, children }) => <Form.Item  shouldUpdate={(prevValues, curValues) => prevValues.issuances[index].haveForwardsIssuance !== curValues.issuances[index].haveForwardsIssuance} >
   {({ getFieldValue }) => getFieldValue(["issuances", index, "haveForwardsIssuance"]) && children}
@@ -7,7 +14,8 @@ const SwitchForwardCell = ({ index, children }) => <Form.Item  shouldUpdate={(pr
 
 const Summary = () => (<Table.Summary>
     <Table.Summary.Row>
-      <Table.Summary.Cell index={0} colSpan={2}>Total</Table.Summary.Cell>
+      <Table.Summary.Cell index={0} colSpan={2}>
+        <Form.Item>Total</Form.Item></Table.Summary.Cell>
       <Table.Summary.Cell index={2} colSpan={2}>
         <Form.Item  shouldUpdate>
           {({getFieldValue}) => getFieldValue("totalCarbonAmount") || 0}
@@ -31,7 +39,7 @@ const Summary = () => (<Table.Summary>
           }}
         </Form.Item>
       </Table.Summary.Cell>
-      <Table.Summary.Cell index={5} colSpan={2}>
+      <Table.Summary.Cell index={5} colSpan={3}>
         <Form.Item  shouldUpdate>
           {({getFieldValue}) => {
             const issuances = getFieldValue("issuances");
@@ -128,7 +136,6 @@ const IssuanceDetailsTable = ({ issuances }) => {
       render: (value, record, index) =>
         <SwitchForwardCell index={index}>
           <Form.Item
-
             name={[index, "forwardsPercentage"]}
             rules={[{ type: "number", max: 90, message: "Forwards issuance cannot be greater than 90" }]}
           >
@@ -160,6 +167,20 @@ const IssuanceDetailsTable = ({ issuances }) => {
             <InputNumber controls={false} />
           </Form.Item>
         </SwitchForwardCell>
+    },
+    {
+      title: "",
+      dataIndex: "tokenId",
+      render(tokenId, record, index) {
+        return <Form.Item shouldUpdate>
+          {({ getFieldValue }) => {
+            const tokenId = getFieldValue(["issuances", index, "tokenId"]);
+            return <ExternalLink
+              href={`${import.meta.env.VITE_EXPLORER_URL}/token/${tokenId}`}
+              disabled={!tokenId}>Explorer</ExternalLink>
+          }}
+        </Form.Item>
+      }
     }
   ];
   return (<Table
