@@ -1,8 +1,8 @@
 import React from "react";
 import { Layout } from "@evercityecosystem/evercity-ui";
-import {Outlet, useNavigate} from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import HeaderActions from "../HeaderActions/index.jsx";
-import {HomeOutlined} from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 
 const LkLayout = () => {
   const navigate = useNavigate();
@@ -11,24 +11,25 @@ const LkLayout = () => {
     navigate("/");
   };
 
-  return(<Layout goHome={handleGoHome}>
-    <Layout.Sider
-      items={[
-        {
-          name: "Distribution",
-          icon: <HomeOutlined />,
-          to: "/distribution",
-        }]}
-    />
-    <Layout>
-      <Layout.Header actions={<HeaderActions/>}>
-
-      </Layout.Header>
-      <Layout.Content>
-        <Outlet />
-      </Layout.Content>
+  return (
+    <Layout goHome={handleGoHome}>
+      <Layout.Sider
+        items={[
+          {
+            name: "Distribution",
+            icon: <HomeOutlined />,
+            to: "/distribution",
+          },
+        ]}
+      />
+      <Layout>
+        <Layout.Header actions={<HeaderActions />}></Layout.Header>
+        <Layout.Content>
+          <Outlet />
+        </Layout.Content>
+      </Layout>
     </Layout>
-  </Layout>);
+  );
 };
 
 export default LkLayout;

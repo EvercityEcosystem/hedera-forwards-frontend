@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prettier": "prettier -w src"
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
@@ -14,6 +15,7 @@
     "@hashgraph/sdk": "^2.18.3",
     "antd": "^4.23.5",
     "hashconnect": "^0.2.3",
+    "lodash.range": "^3.2.0",
     "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

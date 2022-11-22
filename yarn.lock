@@ -354,10 +354,10 @@
     "@ethersproject/bytes" "^5.7.0"
     "@ethersproject/logger" "^5.7.0"
 
-"@evercityecosystem/evercity-ui@1.0.2":
-  version "1.0.2"
-  resolved "https://npm.pkg.github.com/download/@evercityecosystem/evercity-ui/1.0.2/de6fef9fd16ebe2219d716dbfb1eac59d8318d03#de6fef9fd16ebe2219d716dbfb1eac59d8318d03"
-  integrity sha512-v69Zif3/j8q0iG7t+NFLQGIEuY1uEPHHsEVc0YBvfyf2O2atYL/QfMRcqlec8T4ky/UDZNitFXP8afKlW3Kcng==
+"@evercityecosystem/evercity-ui@1.0.3":
+  version "1.0.3"
+  resolved "https://npm.pkg.github.com/download/@evercityecosystem/evercity-ui/1.0.3/5038329ba7777bfecd3ac135ff7f6bce1642c1da#5038329ba7777bfecd3ac135ff7f6bce1642c1da"
+  integrity sha512-kmJBwDV0GE9VInfl4Uc0I5Ez6tJVdJrnwMJPpDvhVQcw2rMeQFmwhbH+E3OnTPLCNy4mE8DxwGx/ZfPl/sp1JA==
   dependencies:
     "@ant-design/icons" "4.7.0"
     ahooks "^3.7.2"
@@ -3012,6 +3012,11 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.range@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.range/-/lodash.range-3.2.0.tgz#f461e588f66683f7eadeade513e38a69a565a15d"
+  integrity sha512-Fgkb7SinmuzqgIhNhAElo0BL/R1rHCnhwSZf78omqSwvWqD0kD2ssOAutQonDKH/ldS8BxA72ORYI09qAY9CYg==
 
 lodash.truncate@^4.4.2:
   version "4.4.2"
